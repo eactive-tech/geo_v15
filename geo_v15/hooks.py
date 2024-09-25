@@ -227,3 +227,16 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+app_include_js = "/assets/erp_customeapp/js/gstr_1.js"
+
+from india_compliance.gst_india.report.gstr_1.gstr_1 import Gstr1Report
+from geo_v15.geo_v15.overrides.gstr_1 import get_invoice_data, get_columns
+Gstr1Report.get_invoice_data = get_invoice_data
+Gstr1Report.get_columns = get_columns
+
+
+from india_compliance.gst_india.report.hsn_wise_summary_of_outward_supplies import hsn_wise_summary_of_outward_supplies
+from geo_v15.geo_v15.overrides.hsn_wise_summary_of_outward_supplies import execute as hsn_execute
+hsn_wise_summary_of_outward_supplies.execute = hsn_execute
+
+
