@@ -1,0 +1,218 @@
+<div class="page-break">
+	<div id="header-html" class="hidden-pdf">
+		{% if letter_head %}
+		<div class="letter-head text-center" style="border-bottom: 2px solid black;">
+			<div class="row">
+				<div class="col-xs-7 col-md-7" style="padding-top: 12px;">
+					<h3 style="font-size: 18px; font-weight: bold; line-height: 17px;text-align: left;">
+						Geolife Agritech India Pvt. Ltd. 
+					</h3>
+					<p style="font-size: 12px; text-align: left;">Reg. Add. : 301, Marathon Max, Opp. Nirmal Lifestyle,
+						LBS Marg, Mulund (W),
+						Mumbai-400 080,
+						Maharashtra, India</p>
+				</div>
+				<div class="col-xs-5 col-md-5">
+					<br>
+					<img src="/files/Geolife.png" style="float: right;">
+				</div>
+
+			</div>
+			
+		</div>
+		{% endif %}
+	</div>
+	<!-- footer -->
+	<div id="footer-html" class="visible-pdf">
+		{% if letter_head.footer %}
+		<div class="letter-head-footer">
+			<!-- <div class="row">
+				<div class="col-xs-6 col-md-6 text-left" style="font-size: smaller;">I/We hereby confirm the above.</div>
+				<div class="col-xs-6 col-md-6 text-right" style="font-size: smaller;">Yours faithfully,</div>
+			</div>
+			<br>
+			<br> -->
+
+			<hr style="border-width:0;color:black;background-color:black;padding-bottom:2px;">
+		</div>
+		{% endif %}
+	</div>
+
+	
+	<h2 class="text-center">{{ _("CONFIRMATION OF ACCOUNTS") }}</h2>
+	<div class="row">
+		<div style="font-size: smaller;" class="col-xs-12 col-md-12 text-right">Date :{{ frappe.format(frappe.utils.today(), 'Date') }}</div>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-6 col-md-6">
+			{% set customer = frappe.get_doc('Customer',filters.party[0]) %}
+			<h5 > {{ _("Customer: ") }} <br><b>  {{filters.party[0] }} <br> {{customer.customer_name }}  </b></h5>	
+			<h6 >{{ customer.primary_address or ""}}</h6>
+		</div>
+		<div class="col-xs-6 col-md-6">
+			<h5 style="text-align: right;">
+				{{ _("From: ") }}
+				<b>{{ frappe.format(filters.from_date, 'Date')}}</b>
+					{{ _("to") }}
+				<b>{{ frappe.format(filters.to_date, 'Date')}}</b>
+			</h5>
+				
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-12 col-md-12">
+			<p style="font-size: smaller;">Dear Sir / Madam <br>
+			Given below is the details of your accounts as standing in our books of accounts for the above mentioned
+				period 
+			Kindly return 3 copies stating your I.T. permanent account number, duly signed and sealed, in confirmation of
+				the same. <br>
+				Please note that if no reply is received from you within a fortnight, it will be assumed that you have
+				accepted the balance shown below.
+			</p>
+			
+		</div>
+	</div>
+	
+	<h5>Opening Balance : 
+		<b>{{ frappe.utils.fmt_money(data[0].balance, currency=filters.presentation_currency) }}</b>
+	</h5>
+
+	<div class="row">
+		<div class="col-xs-6 col-md-6">
+			<table class="table table-bordered table-sm" style="font-size: x-small;">
+				<thead>
+					<tr>
+						<th style="width:14%">{{ _("Date") }}</th>
+						<th style="width:20%">{{ _("Particulars") }}</th>
+						<th style="width:12%">{{ _("Debit") }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in data %}
+					{% set sales_invoice = frappe.db.get_list('GL Entry',filters={'name':row.gl_entry}, fields=["name","voucher_no"]) %}
+					<tr>
+						{% if(row.posting_date and row.debit > 0) %}
+						<td>{{ frappe.format(row.posting_date, 'Date') }}</td>
+						<td>
+							<b>{{ sales_invoice[0].voucher_no}}</b>
+
+							{% if not (filters.party or filters.account) %}
+							{{ row.party or row.account }}
+							<br>
+							{% endif %}
+
+							{{ _("Against") }}: {{ row.against }}
+
+							
+						</td>
+						<td style="text-align: right">
+							{{ frappe.utils.fmt_money(row.debit, currency=filters.presentation_currency) }}</td>
+
+						{% endif %}
+
+					</tr>
+					{% endfor %}
+					<tr>
+						<td></td>
+						<td><b> TOTAL </b></td>
+						<td style="text-align: right; font-size: small;"><b>
+							{% set b = data|length %} {% set m= data | sum(attribute='debit') %} 
+							
+							{{frappe.utils.fmt_money (m - data[b-1].debit)}} 
+
+							</b></td>
+
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+		<div class="col-xs-6 col-md-6">
+			<table class="table table-bordered table-sm" style="font-size: x-small;">
+				<thead>
+					<tr>
+						<th style="width:14%">{{ _("Date") }}</th>
+						<th style="width:20%">{{ _("Particulars") }}</th>
+						<th style="width:12%">{{ _("Credit") }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in data %}
+					{% set pay_entry = frappe.db.get_list('GL Entry',filters={'name':row.gl_entry}, fields=["name","voucher_no"]) %}
+
+					<tr>
+						{% if(row.posting_date and row.credit > 0) %}
+						<td>{{ frappe.format(row.posting_date, 'Date') }}</td>
+						<td>
+							<b>{{ pay_entry[0].voucher_no }}</b>
+							{% if not (filters.party or filters.account) %}
+							
+							{{ row.party or row.account }}
+							<br>
+							{% endif %}
+
+							{{ _("Against") }}: {{ row.against }}
+
+
+							
+						</td>
+						<td style="text-align: right">
+							{{ frappe.utils.fmt_money(row.credit, currency=filters.presentation_currency) }}</td>
+
+						{% endif %}
+					</tr>
+					{% endfor %}
+					<tr>
+						<td></td>
+						<td><b> TOTAL </b></td>
+						<td style="text-align: right;font-size: small;"><b>
+							{% set b = data|length %} {% set credit= data | sum(attribute='credit') %} 
+							
+							{{ frappe.utils.fmt_money(credit - data[b-1].credit) }} 
+
+							</b></td>
+						</tr>
+					
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<h5>Total Debits : <b>{% set b = data|length %} {% set m= data | sum(attribute='debit') %} {{m - data[b-1].debit}} 	</b></h5>
+	<h5>Total Credits : <b>  {% set n= data | sum(attribute='credit') %} {{n - data[b-1].credit}}  </b></h5>
+	<h5>Total Balance : <b>{{ frappe.utils.fmt_money(data[-1].balance, currency=filters.presentation_currency) }}</b></h5>
+
+	<br>
+			<br> 
+			<div class="letter-head-footer">
+			
+				<div class="row">
+					<div class="col-xs-6 col-md-6 text-left" style="font-size: smaller;">I/We hereby confirm the above.</div>
+					<div class="col-xs-6 col-md-6 text-right" style="font-size: smaller;">Yours faithfully,</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-6 col-md-6 text-left" style="font-size: smaller;">
+						<h5><b> {{customer.customer_name }}</b></h5>
+						<br>
+						<br>
+						<p style="font-size: 12px;">Authorized Signatory </p>
+						
+						<h5> PAN - {{customer.pan }}</h5>
+					</div>
+					<div class="col-xs-6 col-md-6 text-right" style="font-size: smaller;">
+						<h5><b>Geolife Agritech India Private Limited </b></h5>
+						<br>
+						<br>
+						<p style="font-size: 12px;">Authorized Signatory </p>
+						
+						
+						<h5>PAN - AAECG6849G </h5>
+					</div>
+				</div>
+			</div>
+
+</div>

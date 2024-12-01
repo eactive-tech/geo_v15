@@ -1,0 +1,316 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-28 17:55:26.823834",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "general_ledger_filters_section",
+  "from_date",
+  "company",
+  "account",
+  "group_by",
+  "cost_center",
+  "column_break_vnhi",
+  "to_date",
+  "finance_book",
+  "currency",
+  "project",
+  "supplier_section",
+  "supplier",
+  "supplier_name",
+  "supplier_group",
+  "fetch_supplier",
+  "column_break_kp1n",
+  "send_to_primary_contact",
+  "section_break_w8nu",
+  "suppliers",
+  "print_preferences_section",
+  "orientation",
+  "include_break",
+  "include_ageing",
+  "ageing_based_on",
+  "column_break_yuq1",
+  "letter_head",
+  "terms_and_conditions",
+  "email_settings_section",
+  "enable_auto_email",
+  "section_break_8n4f",
+  "frequency",
+  "filter_duration",
+  "column_break_disw",
+  "start_date",
+  "section_break_rdd6",
+  "subject",
+  "column_break_0ftw",
+  "cc_to",
+  "section_break_k0h4",
+  "body",
+  "help_text"
+ ],
+ "fields": [
+  {
+   "fieldname": "general_ledger_filters_section",
+   "fieldtype": "Section Break",
+   "label": "General Ledger Filters"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "Account"
+  },
+  {
+   "default": "Group by Voucher (Consolidated)",
+   "fieldname": "group_by",
+   "fieldtype": "Select",
+   "label": "Group By",
+   "options": "\nGroup by Voucher\nGroup by Voucher (Consolidated)"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Table MultiSelect",
+   "label": "Cost Center",
+   "options": "PSOA Cost Center"
+  },
+  {
+   "fieldname": "column_break_vnhi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: doc.suppplier !==''",
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": " To Date",
+   "mandatory_depends_on": "eval:doc.frequency == '';"
+  },
+  {
+   "fieldname": "finance_book",
+   "fieldtype": "Link",
+   "label": "Finance Book",
+   "options": "Finance Book"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Table MultiSelect",
+   "label": "Project",
+   "options": "PSOA Project"
+  },
+  {
+   "fieldname": "supplier_section",
+   "fieldtype": "Section Break",
+   "label": "Supplier"
+  },
+  {
+   "depends_on": "eval: doc.suppplier !==''",
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval: doc.supplier !==''",
+   "fieldname": "supplier_name",
+   "fieldtype": "Data",
+   "label": "Supplier Name"
+  },
+  {
+   "fieldname": "supplier_group",
+   "fieldtype": "Link",
+   "label": "Supplier Group",
+   "options": "Supplier Group"
+  },
+  {
+   "fieldname": "fetch_supplier",
+   "fieldtype": "Button",
+   "label": "Fetch Supplier",
+   "options": "fetch_suppliers",
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "column_break_kp1n",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "A customer must have primary contact email.",
+   "fieldname": "send_to_primary_contact",
+   "fieldtype": "Check",
+   "label": "Send To Primary Contact"
+  },
+  {
+   "fieldname": "section_break_w8nu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "suppliers",
+   "fieldtype": "Table",
+   "label": "Suppliers",
+   "options": "Geolife Process Statement Of Accounts Supplier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "print_preferences_section",
+   "fieldtype": "Section Break",
+   "label": "Print Preferences"
+  },
+  {
+   "fieldname": "orientation",
+   "fieldtype": "Select",
+   "label": "Orientation",
+   "options": "Landscape\nPortrait"
+  },
+  {
+   "default": "1",
+   "fieldname": "include_break",
+   "fieldtype": "Check",
+   "label": "Page Break After Each SoA"
+  },
+  {
+   "default": "0",
+   "fieldname": "include_ageing",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Include Ageing Summary"
+  },
+  {
+   "default": "Due Date",
+   "depends_on": "eval:doc.include_ageing === 1",
+   "fieldname": "ageing_based_on",
+   "fieldtype": "Select",
+   "label": "Ageing Based On",
+   "options": "Due Date\nPosting Date"
+  },
+  {
+   "fieldname": "column_break_yuq1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "letter_head",
+   "fieldtype": "Link",
+   "label": "Letter Head",
+   "options": "Letter Head"
+  },
+  {
+   "fieldname": "terms_and_conditions",
+   "fieldtype": "Link",
+   "label": "Terms and Conditions",
+   "options": "Terms and Conditions"
+  },
+  {
+   "fieldname": "email_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Email Settings"
+  },
+  {
+   "default": "0",
+   "fieldname": "enable_auto_email",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enable Auto Email"
+  },
+  {
+   "fieldname": "section_break_8n4f",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Frequency",
+   "options": "Weekly\nMonthly\nQuarterly"
+  },
+  {
+   "default": "1",
+   "fieldname": "filter_duration",
+   "fieldtype": "Int",
+   "label": "Filter Duration (Months)"
+  },
+  {
+   "fieldname": "column_break_disw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date"
+  },
+  {
+   "fieldname": "section_break_rdd6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject"
+  },
+  {
+   "fieldname": "column_break_0ftw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cc_to",
+   "fieldtype": "Link",
+   "label": "CC To",
+   "options": "User"
+  },
+  {
+   "fieldname": "section_break_k0h4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "body",
+   "fieldtype": "Text Editor",
+   "label": "Body"
+  },
+  {
+   "fieldname": "help_text",
+   "fieldtype": "HTML",
+   "label": "Help Text"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-09-28 18:29:41.292026",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Process Statement of account for supplier",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

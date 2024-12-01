@@ -28,7 +28,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Process Statement Of Accounts" : "public/js/process_statement_of_accounts.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -122,13 +122,6 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
 
 # Scheduled Tasks
 # ---------------
@@ -227,16 +220,136 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
-app_include_js = "/assets/erp_customeapp/js/gstr_1.js"
+doc_events = {
+	"Sales Invoice": {
+		"before_save": "geo_v15.geo_v15.utils.sales_invoice.validate_batch_stock"
+	}
+}
 
+override_doctype_class = {
+	"PaymentReconciliation": "geo_v15.overrides.CustomPaymentReconciliation",
+    "Production Plan": "geo_v15.geo_v15.overrides.production_plan.CustomProductionPlan"
+    # "Work Order": "geo_v15.geo_v15.overrides.work_order.CustomWorkOrder"
+}
+
+app_include_js = [
+    "/assets/geo_v15/js/gstr_1.js",
+    "/assets/geo_v15/js/hsn_wise_summary_of_outward_supplies.js",
+    "/assets/geo_v15/js/trial_balance.js",
+    "/assets/geo_v15/js/item_wise_sales_register.js",
+    "/assets/geo_v15/js/item_wise_purchase_register.js",
+    "/assets/geo_v15/js/purchase_register.js",
+]
+
+# override gstr1 report 
 from india_compliance.gst_india.report.gstr_1.gstr_1 import Gstr1Report
 from geo_v15.geo_v15.overrides.gstr_1 import get_invoice_data, get_columns
 Gstr1Report.get_invoice_data = get_invoice_data
 Gstr1Report.get_columns = get_columns
 
-
+# override hsnwise summary report
 from india_compliance.gst_india.report.hsn_wise_summary_of_outward_supplies import hsn_wise_summary_of_outward_supplies
-from geo_v15.geo_v15.overrides.hsn_wise_summary_of_outward_supplies import execute as hsn_execute
-hsn_wise_summary_of_outward_supplies.execute = hsn_execute
+from geo_v15.geo_v15.overrides.hsn_wise_summary_of_outward_supplies import get_items as hsn_get_items
+hsn_wise_summary_of_outward_supplies.get_items = hsn_get_items
+
+# override process statement of accounts
+from erpnext.accounts.doctype.process_statement_of_accounts import process_statement_of_accounts
+from geo_v15.geo_v15.overrides.process_statement_of_accounts import get_report_pdf, download_statements_pdf
+process_statement_of_accounts.get_report_pdf = get_report_pdf
+process_statement_of_accounts.download_statements_pdf = download_statements_pdf
+
+# override Trial balance report
+from erpnext.accounts.report.trial_balance import trial_balance
+from geo_v15.geo_v15.overrides.trial_balance import execute
+trial_balance.execute = execute
+
+# override general ledger report
+from erpnext.accounts.report.item_wise_sales_register import item_wise_sales_register
+from geo_v15.geo_v15.overrides.item_wise_sales_register import get_columns as sales_register_columns, apply_conditions, get_items
+item_wise_sales_register.get_columns = sales_register_columns
+item_wise_sales_register.apply_conditions = apply_conditions
+item_wise_sales_register.get_items = get_items
 
 
+#general ledger
+from erpnext.accounts.report.general_ledger import general_ledger
+from geo_v15.geo_v15.overrides.general_ledger import (
+    execute as gl_execute,
+    get_gl_entries as gl_get_gl_entries,
+    get_conditions as gl_get_conditions,
+    get_accountwise_gle as gl_get_accountwise_gle,
+    get_result_as_list as gl_get_result_as_list,
+    get_columns as gl_get_columns
+    )
+
+general_ledger.execute = gl_execute
+general_ledger.get_gl_entries = gl_get_gl_entries
+general_ledger.get_conditions = gl_get_conditions
+general_ledger.get_accountwise_gle = gl_get_accountwise_gle
+general_ledger.get_result_as_list = gl_get_result_as_list
+general_ledger.get_columns = gl_get_columns
+
+
+# Procurement tracker
+from erpnext.buying.report.procurement_tracker import procurement_tracker
+from geo_v15.geo_v15.overrides.procurement_tracker import (
+    get_columns as pt_get_columns,
+    get_mapped_mr_details as pt_get_mapped_mr_details,
+    get_data as pt_get_data,
+    get_po_entries as pt_get_po_entries
+    )
+procurement_tracker.get_columns = pt_get_columns
+procurement_tracker.get_data = pt_get_data
+procurement_tracker.get_mapped_mr_details = pt_get_mapped_mr_details
+procurement_tracker.get_po_entries = pt_get_po_entries
+
+#for Item Wise Purchase Register
+from erpnext.accounts.report.item_wise_purchase_register import item_wise_purchase_register
+from geo_v15.geo_v15.overrides.item_wise_purchase_registere import (
+    _execute as iwpr__execute,
+    get_columns as iwpr_get_columns,
+    get_items as iwpr_get_items
+) 
+item_wise_purchase_register._execute = iwpr__execute
+item_wise_purchase_register.get_columns = iwpr_get_columns
+item_wise_purchase_register.get_items = iwpr_get_items
+
+
+# for Purchase Register
+from erpnext.accounts.report.purchase_register import purchase_register
+from geo_v15.geo_v15.overrides.purchase_register import (
+    _execute as pr_execute,
+    get_columns as pr_get_columns,
+    get_invoices as pr_get_invoices
+)
+purchase_register._execute = pr_execute
+purchase_register.get_columns = pr_get_columns
+purchase_register.get_invoices = pr_get_invoices
+
+
+# For Payroll Entry
+from hrms.payroll.doctype.payroll_entry import payroll_entry
+from geo_v15.geo_v15.overrides.payroll_entry import submit_salary_slips_for_employees
+payroll_entry.submit_salary_slips_for_employees = submit_salary_slips_for_employees
+
+
+# For Asset Depreciation auto JV
+from erpnext.assets.doctype.asset import depreciation
+from geo_v15.geo_v15.overrides.asset_depreciation import _make_journal_entry_for_depreciation as asset_make_journal_entry_for_depreciation
+depreciation._make_journal_entry_for_depreciation = asset_make_journal_entry_for_depreciation
+
+# For stock entry
+from erpnext.stock.doctype.stock_entry import stock_entry
+from geo_v15.geo_v15.overrides.stock_entry import add_transfered_raw_materials_in_items
+stock_entry.add_transfered_raw_materials_in_items = add_transfered_raw_materials_in_items
+
+# For Work Order
+from erpnext.manufacturing.doctype.work_order import work_order
+from geo_v15.geo_v15.overrides.work_order import make_stock_return_entry
+work_order.make_stock_return_entry = make_stock_return_entry
+
+
+# For Monthly Attendance Sheet
+from hrms.hr.report.monthly_attendance_sheet import monthly_attendance_sheet
+from geo_v15.geo_v15.overrides.monthly_attendance_sheet import get_attendance_records
+monthly_attendance_sheet.get_attendance_records = get_attendance_records
