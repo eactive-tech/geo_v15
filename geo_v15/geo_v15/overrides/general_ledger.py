@@ -153,13 +153,15 @@ def get_gl_entries(filters, accounting_dimensions):
 		as_dict=1,
 	)
 
-	# journal entry passed on payment reconciliaton removed
+	# # journal entry passed on payment reconciliaton removed
 
 	for rec in gl_entries.copy():
-		if not rec.get('against'):
-			gl_entries.remove(rec)
+		if rec.get("voucher_type") == "Journal Entry":
+			is_system_generated = frappe.db.get_value("Journal Entry", rec.get('voucher_no'), "is_system_generated")
+			if is_system_generated == 1:
+				gl_entries.remove(rec)
 
-	# end of code
+	# # end of code
 
 	if filters.get("show_inventory"):
 		for gl in gl_entries:
