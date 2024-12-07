@@ -272,22 +272,22 @@ item_wise_sales_register.get_items = get_items
 
 
 #general ledger
-from erpnext.accounts.report.general_ledger import general_ledger
-from geo_v15.geo_v15.overrides.general_ledger import (
-    execute as gl_execute,
-    get_gl_entries as gl_get_gl_entries,
-    get_conditions as gl_get_conditions,
-    get_accountwise_gle as gl_get_accountwise_gle,
-    get_result_as_list as gl_get_result_as_list,
-    get_columns as gl_get_columns
-    )
+# from erpnext.accounts.report.general_ledger import general_ledger
+# from geo_v15.geo_v15.overrides.general_ledger import (
+#     execute as gl_execute,
+#     get_gl_entries as gl_get_gl_entries,
+#     get_conditions as gl_get_conditions,
+#     get_accountwise_gle as gl_get_accountwise_gle,
+#     get_result_as_list as gl_get_result_as_list,
+#     get_columns as gl_get_columns
+#     )
 
-general_ledger.execute = gl_execute
-general_ledger.get_gl_entries = gl_get_gl_entries
-general_ledger.get_conditions = gl_get_conditions
-general_ledger.get_accountwise_gle = gl_get_accountwise_gle
-general_ledger.get_result_as_list = gl_get_result_as_list
-general_ledger.get_columns = gl_get_columns
+# general_ledger.execute = gl_execute
+# general_ledger.get_gl_entries = gl_get_gl_entries
+# general_ledger.get_conditions = gl_get_conditions
+# general_ledger.get_accountwise_gle = gl_get_accountwise_gle
+# general_ledger.get_result_as_list = gl_get_result_as_list
+# general_ledger.get_columns = gl_get_columns
 
 
 # Procurement tracker
