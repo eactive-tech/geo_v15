@@ -75,7 +75,7 @@
 						{% if sales_invoices %}
 								{% if filters.geo_show_inventory %}
 									<br>{{ _("Inventory") }}: 
-									<table style="width: 100%;">
+									<table class="table table-bordered">
 										
 										{% for sitem in sales_invoices.items %}
 											<tr>

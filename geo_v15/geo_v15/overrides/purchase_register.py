@@ -29,7 +29,7 @@ def _execute(filters=None, additional_table_columns=None):
 	if filters.get("include_payments"):
 		invoice_list += get_payments(filters)
 	if filters.get("branch"):
-		invoice_list = get_invoices(filters, get_query_columns(additional_table_columns), filter.get("branch"))
+		invoice_list = get_invoices(filters, get_query_columns(additional_table_columns), filters.get("branch"))
 	else:
 		invoice_list = get_invoices(filters, get_query_columns(additional_table_columns))
 
@@ -300,7 +300,8 @@ def get_columns(invoice_list, additional_table_columns, include_payments=False):
 	return columns, accounts[0], accounts[2], accounts[1]
 
 def get_invoices(filters, additional_query_columns, branch = None):
-	user_branch = frappe.db.get_list("User Permission", filters={"user": frappe.session.user, "allow": "Branch"}, pluck="for_value")
+	# user_branch = frappe.db.get_list("User Permission", filters={"user": frappe.session.user, "allow": "Branch"}, pluck="for_value")
+	user_branch = [d.name for d in frappe.db.get_list("Branch", fields=["name"])]
 	pi = frappe.qb.DocType("Purchase Invoice")
 	query = (
 		frappe.qb.from_(pi)

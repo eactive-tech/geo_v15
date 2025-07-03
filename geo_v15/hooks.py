@@ -235,8 +235,8 @@ override_doctype_class = {
 app_include_js = [
     "/assets/geo_v15/js/gstr_1.js",
     "/assets/geo_v15/js/hsn_wise_summary_of_outward_supplies.js",
-    "/assets/geo_v15/js/trial_balance.js",
-    "/assets/geo_v15/js/item_wise_sales_register.js",
+    # "/assets/geo_v15/js/trial_balance.js",
+    # "/assets/geo_v15/js/item_wise_sales_register.js",
     "/assets/geo_v15/js/item_wise_purchase_register.js",
     "/assets/geo_v15/js/purchase_register.js",
 ]
@@ -259,35 +259,35 @@ process_statement_of_accounts.get_report_pdf = get_report_pdf
 process_statement_of_accounts.download_statements_pdf = download_statements_pdf
 
 # override Trial balance report
-from erpnext.accounts.report.trial_balance import trial_balance
-from geo_v15.geo_v15.overrides.trial_balance import execute
-trial_balance.execute = execute
+# from erpnext.accounts.report.trial_balance import trial_balance
+# from geo_v15.geo_v15.overrides.trial_balance import execute
+# trial_balance.execute = execute
 
 # override general ledger report
-from erpnext.accounts.report.item_wise_sales_register import item_wise_sales_register
-from geo_v15.geo_v15.overrides.item_wise_sales_register import get_columns as sales_register_columns, apply_conditions, get_items
-item_wise_sales_register.get_columns = sales_register_columns
-item_wise_sales_register.apply_conditions = apply_conditions
-item_wise_sales_register.get_items = get_items
+# from erpnext.accounts.report.item_wise_sales_register import item_wise_sales_register
+# from geo_v15.geo_v15.overrides.item_wise_sales_register import get_columns as sales_register_columns, apply_conditions, get_items
+# item_wise_sales_register.get_columns = sales_register_columns
+# item_wise_sales_register.apply_conditions = apply_conditions
+# item_wise_sales_register.get_items = get_items
 
 
 #general ledger
-from erpnext.accounts.report.general_ledger import general_ledger
-from geo_v15.geo_v15.overrides.general_ledger import (
-    execute as gl_execute,
-    get_gl_entries as gl_get_gl_entries,
-    get_conditions as gl_get_conditions,
-    get_accountwise_gle as gl_get_accountwise_gle,
-    get_result_as_list as gl_get_result_as_list,
-    get_columns as gl_get_columns
-    )
+# from erpnext.accounts.report.general_ledger import general_ledger
+# from geo_v15.geo_v15.overrides.general_ledger import (
+#     execute as gl_execute,
+#     get_gl_entries as gl_get_gl_entries,
+#     get_conditions as gl_get_conditions,
+#     get_accountwise_gle as gl_get_accountwise_gle,
+#     get_result_as_list as gl_get_result_as_list,
+#     get_columns as gl_get_columns
+#     )
 
-general_ledger.execute = gl_execute
-general_ledger.get_gl_entries = gl_get_gl_entries
-general_ledger.get_conditions = gl_get_conditions
-general_ledger.get_accountwise_gle = gl_get_accountwise_gle
-general_ledger.get_result_as_list = gl_get_result_as_list
-general_ledger.get_columns = gl_get_columns
+# general_ledger.execute = gl_execute
+# general_ledger.get_gl_entries = gl_get_gl_entries
+# general_ledger.get_conditions = gl_get_conditions
+# general_ledger.get_accountwise_gle = gl_get_accountwise_gle
+# general_ledger.get_result_as_list = gl_get_result_as_list
+# general_ledger.get_columns = gl_get_columns
 
 
 # Procurement tracker
