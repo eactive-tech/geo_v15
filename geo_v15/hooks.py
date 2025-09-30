@@ -11,7 +11,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/geo_v15/css/geo_v15.css"
-# app_include_js = "/assets/geo_v15/js/geo_v15.js"
+# app_include_js = "/assets/geo_v15/js/custom.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/geo_v15/css/geo_v15.css"
@@ -28,7 +28,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Process Statement Of Accounts" : "public/js/process_statement_of_accounts.js"}
+# doctype_js = {"Process Statement Of Accounts" : "public/js/process_statement_of_accounts.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -233,7 +233,7 @@ override_doctype_class = {
 }
 
 app_include_js = [
-    "/assets/geo_v15/js/gstr_1.js",
+    # "/assets/geo_v15/js/gstr_1.js",
     "/assets/geo_v15/js/hsn_wise_summary_of_outward_supplies.js",
     # "/assets/geo_v15/js/trial_balance.js",
     # "/assets/geo_v15/js/item_wise_sales_register.js",
@@ -242,21 +242,21 @@ app_include_js = [
 ]
 
 # override gstr1 report 
-from india_compliance.gst_india.report.gstr_1.gstr_1 import Gstr1Report
-from geo_v15.geo_v15.overrides.gstr_1 import get_invoice_data, get_columns
-Gstr1Report.get_invoice_data = get_invoice_data
-Gstr1Report.get_columns = get_columns
+# from india_compliance.gst_india.report.gstr_1.gstr_1 import Gstr1Report
+# from geo_v15.geo_v15.overrides.gstr_1 import get_invoice_data, get_columns
+# Gstr1Report.get_invoice_data = get_invoice_data
+# Gstr1Report.get_columns = get_columns
 
 # override hsnwise summary report
 from india_compliance.gst_india.report.hsn_wise_summary_of_outward_supplies import hsn_wise_summary_of_outward_supplies
-from geo_v15.geo_v15.overrides.hsn_wise_summary_of_outward_supplies import get_items as hsn_get_items
-hsn_wise_summary_of_outward_supplies.get_items = hsn_get_items
+# from geo_v15.geo_v15.overrides.hsn_wise_summary_of_outward_supplies import get_items as hsn_get_items
+# hsn_wise_summary_of_outward_supplies.get_items = hsn_get_items
 
 # override process statement of accounts
-from erpnext.accounts.doctype.process_statement_of_accounts import process_statement_of_accounts
-from geo_v15.geo_v15.overrides.process_statement_of_accounts import get_report_pdf, download_statements_pdf
-process_statement_of_accounts.get_report_pdf = get_report_pdf
-process_statement_of_accounts.download_statements_pdf = download_statements_pdf
+# from erpnext.accounts.doctype.process_statement_of_accounts import process_statement_of_accounts
+# from geo_v15.geo_v15.overrides.process_statement_of_accounts import get_report_pdf, download_statements_pdf
+# process_statement_of_accounts.get_report_pdf = get_report_pdf
+# process_statement_of_accounts.download_statements_pdf = download_statements_pdf
 
 # override Trial balance report
 # from erpnext.accounts.report.trial_balance import trial_balance
@@ -304,15 +304,15 @@ procurement_tracker.get_mapped_mr_details = pt_get_mapped_mr_details
 procurement_tracker.get_po_entries = pt_get_po_entries
 
 #for Item Wise Purchase Register
-from erpnext.accounts.report.item_wise_purchase_register import item_wise_purchase_register
-from geo_v15.geo_v15.overrides.item_wise_purchase_registere import (
-    _execute as iwpr__execute,
-    get_columns as iwpr_get_columns,
-    get_items as iwpr_get_items
-) 
-item_wise_purchase_register._execute = iwpr__execute
-item_wise_purchase_register.get_columns = iwpr_get_columns
-item_wise_purchase_register.get_items = iwpr_get_items
+# from erpnext.accounts.report.item_wise_purchase_register import item_wise_purchase_register
+# from geo_v15.geo_v15.overrides.item_wise_purchase_registere import (
+#     _execute as iwpr__execute,
+#     get_columns as iwpr_get_columns,
+#     get_items as iwpr_get_items
+# ) 
+# item_wise_purchase_register._execute = iwpr__execute
+# item_wise_purchase_register.get_columns = iwpr_get_columns
+# item_wise_purchase_register.get_items = iwpr_get_items
 
 
 # for Purchase Register

@@ -104,6 +104,7 @@ def get_report_pdf(doc, mcustomer=[], consolidated=True):
 		)
 
 		col, res = get_soa(filters)
+		frappe.log_error(message=res,title=f"Process Statement of Accounts")
 
 		for x in [0, -2, -1]:
 			res[x]["account"] = res[x]["account"].replace("'", "")
@@ -152,6 +153,8 @@ def get_report_pdf(doc, mcustomer=[], consolidated=True):
 
 @frappe.whitelist()
 def download_statements(document_name, mcustomer):
+	frappe.log_error(message=document_name,title="Error 06")
+
 	doc = frappe.get_doc("Process Statement Of Accounts", document_name)
 	report = get_report_pdf(doc, mcustomer)
 	doc_name_pdf=document_name

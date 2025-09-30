@@ -23,4 +23,4 @@ def validate_batch_stock(doc, method):
                         x["result"].pop()                    
 
                         if item.qty > x["result"][0].get("balance_qty"):
-                            frappe.throw(f'Stock Insufficient{x["result"][0].get("balance_qty")}')
+                            frappe.throw(f'Stock Insufficient in {item.item_code}, qty:{x["result"][0].get("balance_qty")}')

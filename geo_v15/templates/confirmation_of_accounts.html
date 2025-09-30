@@ -91,7 +91,7 @@
 				</thead>
 				<tbody>
 					{% for row in data %}
-					{% set sales_invoice = frappe.db.get_list('GL Entry',filters={'name':row.gl_entry}, fields=["name","voucher_no"]) %}
+					{% set sales_invoice = frappe.db.get_list('GL Entry',filters={'name':row.get('gl_entry')}, fields=["name","voucher_no"]) %}
 					<tr>
 						{% if(row.posting_date and row.debit > 0) %}
 						<td>{{ frappe.format(row.posting_date, 'Date') }}</td>
@@ -140,7 +140,7 @@
 				</thead>
 				<tbody>
 					{% for row in data %}
-					{% set pay_entry = frappe.db.get_list('GL Entry',filters={'name':row.gl_entry}, fields=["name","voucher_no"]) %}
+					{% set pay_entry = frappe.db.get_list('GL Entry',filters={'name':row.get('gl_entry')}, fields=["name","voucher_no"]) %}
 
 					<tr>
 						{% if(row.posting_date and row.credit > 0) %}
@@ -181,8 +181,8 @@
 		</div>
 	</div>
 
-	<h5>Total Debits : <b>{% set b = data|length %} {% set m= data | sum(attribute='debit') %} {{m - data[b-1].debit}} 	</b></h5>
-	<h5>Total Credits : <b>  {% set n= data | sum(attribute='credit') %} {{n - data[b-1].credit}}  </b></h5>
+	<h5>Total Debits : <b>{% set b = data|length %} {% set m= data | sum(attribute='debit') %} {{ frappe.utils.fmt_money(m - data[b-1].debit) }} 	</b></h5>
+	<h5>Total Credits : <b>  {% set n= data | sum(attribute='credit') %} {{ frappe.utils.fmt_money(n - data[b-1].credit) }}  </b></h5>
 	<h5>Total Balance : <b>{{ frappe.utils.fmt_money(data[-1].balance, currency=filters.presentation_currency) }}</b></h5>
 
 	<br>

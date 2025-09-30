@@ -9,7 +9,7 @@ from datetime import datetime ,time
 @frappe.whitelist()
 def get_biometric_data():
     try:
-        from_date = frappe.utils.today()
+        from_date = frappe.utils.add_to_date(frappe.utils.today(),days=-12)
         to_date = frappe.utils.today()
         to_date_obj = datetime.strptime(to_date, '%Y-%m-%d')
         from_date_obj = datetime.strptime(from_date, '%Y-%m-%d')

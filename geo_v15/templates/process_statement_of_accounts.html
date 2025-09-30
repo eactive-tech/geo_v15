@@ -65,7 +65,7 @@
 					{% endif %}
 
 					{{ _("Against") }}: {{ row.against }}
-					{% if filters.geo_show_remarks %}
+					{% if filters.show_remarks %}
 					<br>{{ _("Remarks") }}: {{ row.remarks }}
 					{% endif %}
 
@@ -73,9 +73,9 @@
 					
 						{% set sales_invoices = frappe.get_doc("Sales Invoice",row.voucher_no) %}
 						{% if sales_invoices %}
-								{% if filters.geo_show_inventory %}
+								{% if filters.show_inventory %}
 									<br>{{ _("Inventory") }}: 
-									<table class="table table-bordered">
+									<table style="width: 100%;">
 										
 										{% for sitem in sales_invoices.items %}
 											<tr>
@@ -88,7 +88,7 @@
 									</table>
 								{% endif %}
 
-						{% if filters.geo_show_taxes %}
+						{% if filters.show_taxes %}
 									<table style="width: 100%;">
 										
 										{% for titem in sales_invoices.taxes %}
