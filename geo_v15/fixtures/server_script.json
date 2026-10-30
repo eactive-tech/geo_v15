@@ -1,0 +1,42 @@
+[
+ {
+  "allow_guest": 0,
+  "creation": "2026-10-29 18:04:32.279202",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "idx": 0,
+  "modified": "2026-10-30 16:25:19.694148",
+  "modified_by": "ayush@eactive.in",
+  "name": "DCC Calculate Points",
+  "owner": "Administrator",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Dealer Category Calculation",
+  "script": "flt = frappe.utils.flt\n\nsales = flt(doc.sales_turnover)\npurchase = flt(doc.purchase_turnover)\ngross_profit = flt(doc.gross_profit)\nnpbt = flt(doc.net_profit_before_tax)\nfixed_asset = flt(doc.fixed_asset)\ninvestment = flt(doc.investment)\ndebtors = flt(doc.sundry_debtors)\nstock = flt(doc.inventory_stock)\nother_ca = flt(doc.other_current_assets)\ncash_bank = flt(doc.cash_bank_balances)\nsecured_lt = flt(doc.secured_loans_long_term)\nunsecured_st = flt(doc.unsecured_loans_short_term)\nother_cl = flt(doc.other_current_liabilities)\ncreditors = flt(doc.sundry_creditors)\n\ncurrent_assets = debtors + stock + other_ca + cash_bank\ncurrent_liabilities = other_cl + creditors\ntotal_assets = fixed_asset + investment + current_assets\n\n# Working Capital\nworking_capital = current_assets - current_liabilities\n\n# Net Worth\nnet_worth = fixed_asset + investment + current_assets - secured_lt - unsecured_st - other_cl - creditors\n\n# GP Ratio\ngp_ratio = 0 if sales == 0 else gross_profit / sales * 100\n\n# NP Ratio\nnp_ratio = 0 if sales == 0 else npbt / sales * 100\n\n# Working Capital Ratio (Excel guards on debtors; #DIV/0! is treated as 0)\nif debtors == 0 or current_liabilities == 0:\n    wc_ratio = 0\nelse:\n    wc_ratio = current_assets / current_liabilities\n\n# Net Worth Ratio (Excel guards on debtors; #DIV/0! is treated as 0)\nif debtors == 0 or total_assets == 0:\n    nw_ratio = 0\nelse:\n    nw_ratio = net_worth / total_assets * 100\n\n# DSO (Excel guards on creditors; #DIV/0! is treated as 0)\nif creditors == 0 or purchase == 0:\n    dso = 0\nelse:\n    dso = creditors / purchase * 365\n\n\ndef get_ranges(paper, child_doctype, parentfield, result_field):\n    if not paper:\n        return []\n    return frappe.get_all(\n        child_doctype,\n        filters={\"parent\": paper, \"parenttype\": \"Dealer Category Criteria Paper\", \"parentfield\": parentfield},\n        fields=[\"from_value\", \"to_value\", result_field],\n        order_by=\"from_value desc\",\n    )\n\n\n# Rows are checked from the highest From down, so a value matches only one row.\n# A row whose To is not above its From (e.g. 80 -> 0) has no upper limit.\n# A value in a gap between ranges (e.g. 79.995) takes the nearest row below it,\n# and a value below every range takes the lowest row.\ndef match_range(rows, value, result_field):\n    for r in rows:\n        value_from = frappe.utils.flt(r.from_value)\n        value_to = frappe.utils.flt(r.to_value)\n        if value >= value_from and (value_to <= value_from or value <= value_to):\n            return r.get(result_field)\n    for r in rows:\n        if value >= frappe.utils.flt(r.from_value):\n            return r.get(result_field)\n    if rows:\n        return rows[-1].get(result_field)\n    return None\n\n\npaper = frappe.db.get_value(\"Dealer Category Criteria Paper\", {\"is_active\": 1}, \"name\")\nmissing = []\n\n# (point field, value compared, child doctype, parentfield on Criteria Paper, table label)\npoint_tables = [\n    (\"st_point\", sales, \"DCCP Sales Turnover\", \"sales_turnover\", \"Sales Turnover\"),\n    (\"gpr_point\", gp_ratio, \"DCCP Gross Profit Ratio\", \"gross_profit_ratio\", \"Gross Profit Ratio\"),\n    (\"npr_point\", np_ratio, \"DCCP Net Profit Ratio\", \"net_profit_ratio\", \"Net Profit Ratio\"),\n    (\"wc_point\", wc_ratio, \"DCCP Working Capital\", \"working_capital\", \"Working Capital\"),\n    (\"net_worth_point\", nw_ratio, \"DCCP Net Worth\", \"net_worth\", \"Net Worth\"),\n    (\"dso_point\", dso, \"DCCP DSO\", \"dso\", \"DSO\"),\n]\n\npoints = {}\nfor fieldname, value, child_doctype, parentfield, label in point_tables:\n    rows = get_ranges(paper, child_doctype, parentfield, \"points\")\n    if not rows:\n        missing.append(label)\n    points[fieldname] = flt(match_range(rows, value, \"points\"))\n\ndoc.working_capital = working_capital\ndoc.net_worth = net_worth\ndoc.gp_ratio = gp_ratio\ndoc.np_ratio = np_ratio\ndoc.working_capital_ratio = wc_ratio\ndoc.net_worth_ratio = nw_ratio\ndoc.dso = dso\ndoc.st_point = points[\"st_point\"]\ndoc.gpr_point = points[\"gpr_point\"]\ndoc.npr_point = points[\"npr_point\"]\ndoc.wc_point = points[\"wc_point\"]\ndoc.net_worth_point = points[\"net_worth_point\"]\ndoc.dso_point = points[\"dso_point\"]\n\n# Total Points\ndoc.total_points = (doc.st_point + doc.gpr_point + doc.npr_point + doc.wc_point + doc.net_worth_point + doc.dso_point)\n\n# New Dealer Category\ncategory_rows = get_ranges(paper, \"DCCP Category Points\", \"category_points\", \"category\")\nif not category_rows:\n    missing.append(\"Point Table for Category\")\ndoc.new_dealer_category = match_range(category_rows, doc.total_points, \"category\") or \"\"\n\nif not paper:\n    frappe.msgprint(\"No active Dealer Category Criteria Paper found. Points were set to 0 and New Dealer Category was left blank.\")\nelif missing:\n    frappe.msgprint(\"Active Dealer Category Criteria Paper \" + paper + \" has no rows in: \" + \", \".join(missing) + \". Those values were set to 0 / blank.\")\n",
+  "script_type": "DocType Event"
+ },
+ {
+  "allow_guest": 0,
+  "creation": "2026-10-29 13:24:28.150301",
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Server Script",
+  "doctype_event": "Before Save",
+  "enable_rate_limit": 0,
+  "event_frequency": "All",
+  "idx": 0,
+  "modified": "2026-10-29 13:28:24.131903",
+  "modified_by": "Administrator",
+  "name": "DCCP Single Active",
+  "owner": "Administrator",
+  "rate_limit_count": 5,
+  "rate_limit_seconds": 86400,
+  "reference_doctype": "Dealer Category Criteria Paper",
+  "script": "if doc.is_active:\n    active = frappe.db.get_value(\n        \"Dealer Category Criteria Paper\",\n        {\"is_active\": 1, \"name\": [\"!=\", doc.name]},\n        \"name\",\n    )\n    if active:\n        frappe.throw(\n            \"Dealer Category Criteria Paper \" + active + \" is already active. Deactivate it before activating this document.\",\n            title=\"Another Document Is Active\",\n        )\n",
+  "script_type": "DocType Event"
+ }
+]

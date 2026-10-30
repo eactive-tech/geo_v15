@@ -220,6 +220,13 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+	{
+		"dt": "Server Script",
+		"filters": [["name", "in", ["DCC Calculate Points", "DCCP Single Active"]]],
+	}
+]
+
 doc_events = {
 	"Sales Invoice": {
 		"before_save": "geo_v15.geo_v15.utils.sales_invoice.validate_batch_stock"
