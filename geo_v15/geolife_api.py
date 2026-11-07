@@ -13,6 +13,7 @@ from erpnext.selling.doctype.customer.customer import get_credit_limit, get_cust
 from frappe.utils import flt
 from frappe.utils import generate_hash, get_files_path, get_site_name, now
 # import filetype
+from frappe.utils.file_manager import get_file_path
 
 
 
@@ -46,23 +47,79 @@ def gm_write_file(data, filename, docname, doctype):
 
 
 @frappe.whitelist(allow_guest=True)
-def get_doctype_images(doctype, docname, is_private):
-    attachments = frappe.db.get_all("File",
-        fields=["attached_to_name", "file_name", "file_url", "is_private"],
-        filters={"attached_to_name": docname, "attached_to_doctype": doctype}
+def get_doctype_images(doctype, docname, is_private=None):
+    attachments = frappe.get_all(
+        "File",
+        fields=["name", "file_name", "file_url", "is_private"],
+        filters={
+            "attached_to_name": docname,
+            "attached_to_doctype": doctype
+        }
     )
+
     resp = []
+
     for attachment in attachments:
-        # file_path = site_path + attachment["file_url"]
-        x = get_files_path(attachment['file_name'], is_private=is_private)
-        with open(x, "rb") as f:
-            # encoded_string = base64.b64encode(image_file.read())
-            img_content = f.read()
+        try:
+            # Get actual file path from file_url
+            file_path = get_file_path(attachment.file_url)
+
+            if not os.path.exists(file_path):
+                frappe.log_error(
+                    f"File not found: {file_path}",
+                    "Get Doctype Images"
+                )
+                continue
+
+            with open(file_path, "rb") as f:
+                img_content = f.read()
+
             img_base64 = base64.b64encode(img_content).decode()
-            img_base64 = 'data:image/jpeg;base64,' + img_base64
-        resp.append({"image": img_base64})
+
+            # Detect mime type from extension
+            ext = os.path.splitext(attachment.file_name)[1].lower()
+
+            if ext == ".png":
+                mime = "image/png"
+            elif ext == ".gif":
+                mime = "image/gif"
+            elif ext == ".webp":
+                mime = "image/webp"
+            else:
+                mime = "image/jpeg"
+
+            resp.append({
+                "file_name": attachment.file_name,
+                "image": f"data:{mime};base64,{img_base64}"
+            })
+
+        except Exception:
+            frappe.log_error(
+                frappe.get_traceback(),
+                f"Error processing file: {attachment.file_name}"
+            )
 
     return resp
+
+
+# @frappe.whitelist(allow_guest=True)
+# def get_doctype_images(doctype, docname, is_private):
+#     attachments = frappe.db.get_all("File",
+#         fields=["attached_to_name", "file_name", "file_url", "is_private"],
+#         filters={"attached_to_name": docname, "attached_to_doctype": doctype}
+#     )
+#     resp = []
+#     for attachment in attachments:
+#         # file_path = site_path + attachment["file_url"]
+#         x = get_files_path(attachment['file_name'], is_private=is_private)
+#         with open(x, "rb") as f:
+#             # encoded_string = base64.b64encode(image_file.read())
+#             img_content = f.read()
+#             img_base64 = base64.b64encode(img_content).decode()
+#             img_base64 = 'data:image/jpeg;base64,' + img_base64
+#         resp.append({"image": img_base64})
+
+#     return resp
     
 @frappe.whitelist()
 def customer_credit_limit_outstanding_bl():

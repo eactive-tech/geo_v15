@@ -222,8 +222,8 @@ app_license = "mit"
 
 fixtures = [
 	{
-		"dt": "Server Script",
-		"filters": [["name", "in", ["DCC Calculate Points", "DCCP Single Active"]]],
+		"dt": "Custom Field",
+		"filters": [["name", "in", ["Customer-custom_customer_category_as_per_balance_sheet"]]],
 	}
 ]
 

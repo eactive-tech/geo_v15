@@ -6,7 +6,7 @@ frappe.ui.form.on('Process Statement of account for supplier', {
 
 	// }
 	view_properties: function(frm) {
-		frappe.route_options = {doc_type: 'Customer'};
+		frappe.route_options = {doc_type: 'Supplier'};
 		frappe.set_route("Form", "Customize Form");
 	},
 	refresh: function(frm){

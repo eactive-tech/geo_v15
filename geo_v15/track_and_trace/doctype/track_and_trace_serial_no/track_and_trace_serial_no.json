@@ -1,0 +1,158 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-09 09:59:37.764992",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_fe5n",
+  "amended_from",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_track_and_trace_serial_no",
+  "company",
+  "work_order",
+  "item_code",
+  "item_name",
+  "serial_no",
+  "batch_no",
+  "qty",
+  "qr_code_details",
+  "items"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_fe5n",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Track and Trace Serial No",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Track and Trace Serial No"
+  },
+  {
+   "fieldname": "parent_track_and_trace_serial_no",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Track and Trace Serial No",
+   "options": "Track and Trace Serial No"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "label": "Work Order",
+   "options": "Work Order"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Link",
+   "label": "Serial No",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Link",
+   "label": "Batch No",
+   "options": "Batch"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Int",
+   "label": "QTY"
+  },
+  {
+   "fieldname": "qr_code_details",
+   "fieldtype": "Link",
+   "label": "Qr Code Details",
+   "options": "Item Details"
+  },
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Track and Trace Serial No Entry"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2026-05-09 10:02:55.873131",
+ "modified_by": "Administrator",
+ "module": "Track and Trace",
+ "name": "Track and Trace Serial No",
+ "nsm_parent_field": "parent_track_and_trace_serial_no",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

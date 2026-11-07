@@ -9,15 +9,32 @@ from datetime import datetime ,time
 @frappe.whitelist()
 def get_biometric_data():
     try:
+        frappe.enqueue("geo_v15.biometric_attendance_api.get_biometric_data_from_api", queue='long', job_id="biometric_sync_factory", deduplicate=True)
+
+        frappe.response.message={
+                'status':True,
+                'message':f"Data Inserted"
+        }
+    except Exception as e:
+        frappe.log_error("get_biometric_data error", e)
+        frappe.response.message={
+            'status':False,
+            'message':f"{e}"
+        }
+
+@frappe.whitelist()
+def get_biometric_data_from_api():
+    try:
         from_date = frappe.utils.add_to_date(frappe.utils.today(),days=-12)
         to_date = frappe.utils.today()
         to_date_obj = datetime.strptime(to_date, '%Y-%m-%d')
         from_date_obj = datetime.strptime(from_date, '%Y-%m-%d')
         to_date = to_date_obj.strftime('%d%m%Y')
         from_date = from_date_obj.strftime('%d%m%Y')
-        mindex = frappe.db.get_value("Biometric Attendance Log", filters={'device_location':'Factory'}, fieldname="max(indexno)") or 0
+        # indexno is a Data (varchar) column, so max() must be numeric, not alphabetical
+        mindex = frappe.db.sql("select max(cast(indexno as unsigned)) from `tabBiometric Attendance Log` where device_location=%s", "Factory")[0][0] or 0
         response = make_get_request(f"http://157.20.160.34:80/COSEC/api.svc/v2/template-data?action=get;id=3;date-range={from_date}-{to_date};format=json;index={int(mindex)+1}", auth=("sa", "admin"))
-        frappe.log_error("get_biometric_data backend", response)
+        # frappe.log_error("get_biometric_data backend", response)
         if response['template-data']:
             for b in response['template-data']:
                 try:
@@ -53,7 +70,8 @@ def get_biometric_data():
                             "custom_biometric_log":mdoc.get('name'),
                         }).insert()
                 except Exception as err:
-                    frappe.log_error("get_biometric_data error for log", err)
+                    pass
+                    # frappe.log_error("get_biometric_data error for log", err)
                     
                 frappe.db.commit()
 

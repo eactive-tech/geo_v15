@@ -1,0 +1,154 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:serial_no",
+ "creation": "2026-05-09 09:37:20.368091",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_bbzm",
+  "amended_from",
+  "lft",
+  "rgt",
+  "is_group",
+  "old_parent",
+  "parent_trace_serial_no",
+  "serial_no",
+  "main_serial_no",
+  "work_order",
+  "its_fg",
+  "replaced_by",
+  "is_replaced",
+  "resones"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_bbzm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Trace Serial No",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "lft",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Left",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "rgt",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Right",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_group",
+   "fieldtype": "Check",
+   "label": "Is Group"
+  },
+  {
+   "fieldname": "old_parent",
+   "fieldtype": "Link",
+   "label": "Old Parent",
+   "options": "Trace Serial No"
+  },
+  {
+   "fieldname": "parent_trace_serial_no",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Parent Trace Serial No",
+   "options": "Trace Serial No"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Data",
+   "label": "Serial No",
+   "unique": 1
+  },
+  {
+   "fieldname": "main_serial_no",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Main Serial No",
+   "options": "Serial No"
+  },
+  {
+   "fieldname": "work_order",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_preview": 1,
+   "in_standard_filter": 1,
+   "label": "Work Order",
+   "options": "Work Order"
+  },
+  {
+   "default": "0",
+   "fieldname": "its_fg",
+   "fieldtype": "Check",
+   "label": "Its FG"
+  },
+  {
+   "fieldname": "replaced_by",
+   "fieldtype": "Link",
+   "label": "Replaced By",
+   "options": "Trace Serial No"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_replaced",
+   "fieldtype": "Check",
+   "label": "Is Replaced"
+  },
+  {
+   "fieldname": "resones",
+   "fieldtype": "Text",
+   "label": "Resones"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "is_tree": 1,
+ "links": [],
+ "modified": "2026-08-08 13:15:04.198708",
+ "modified_by": "Administrator",
+ "module": "Track and Trace",
+ "name": "Trace Serial No",
+ "naming_rule": "By fieldname",
+ "nsm_parent_field": "parent_trace_serial_no",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
