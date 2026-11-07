@@ -1,0 +1,340 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{customer}-{fiscal_year}",
+ "creation": "2026-11-07 11:17:14.110814",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "fiscal_year",
+  "column_break_customer",
+  "customer_name",
+  "turnover_section",
+  "sales_turnover",
+  "gross_profit",
+  "column_break_turnover",
+  "purchase_turnover",
+  "net_profit_before_tax",
+  "assets_section",
+  "fixed_asset",
+  "sundry_debtors",
+  "other_current_assets",
+  "column_break_assets",
+  "investment",
+  "inventory_stock",
+  "cash_bank_balances",
+  "liabilities_section",
+  "secured_loans_long_term",
+  "other_current_liabilities",
+  "column_break_liabilities",
+  "unsecured_loans_short_term",
+  "sundry_creditors",
+  "calculation_section",
+  "working_capital",
+  "gp_ratio",
+  "np_ratio",
+  "working_capital_ratio",
+  "net_worth_ratio",
+  "dso",
+  "column_break_calculation",
+  "net_worth",
+  "st_point",
+  "gpr_point",
+  "npr_point",
+  "wc_point",
+  "net_worth_point",
+  "dso_point",
+  "total_points",
+  "result_section",
+  "new_dealer_category",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Balance Sheet of F.Y",
+   "options": "Fiscal Year",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_customer",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "turnover_section",
+   "fieldtype": "Section Break",
+   "label": "Turnover & Profit"
+  },
+  {
+   "fieldname": "sales_turnover",
+   "fieldtype": "Currency",
+   "label": "Sales Turnover"
+  },
+  {
+   "fieldname": "gross_profit",
+   "fieldtype": "Currency",
+   "label": "Gross Profit"
+  },
+  {
+   "fieldname": "column_break_turnover",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "purchase_turnover",
+   "fieldtype": "Currency",
+   "label": "Purchase Turnover"
+  },
+  {
+   "fieldname": "net_profit_before_tax",
+   "fieldtype": "Currency",
+   "label": "Net Profit Before Tax"
+  },
+  {
+   "fieldname": "assets_section",
+   "fieldtype": "Section Break",
+   "label": "Assets"
+  },
+  {
+   "fieldname": "fixed_asset",
+   "fieldtype": "Currency",
+   "label": "Fixed Asset"
+  },
+  {
+   "fieldname": "sundry_debtors",
+   "fieldtype": "Currency",
+   "label": "Sundry Debtors"
+  },
+  {
+   "fieldname": "other_current_assets",
+   "fieldtype": "Currency",
+   "label": "Other Current Assets"
+  },
+  {
+   "fieldname": "column_break_assets",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "investment",
+   "fieldtype": "Currency",
+   "label": "Investment"
+  },
+  {
+   "fieldname": "inventory_stock",
+   "fieldtype": "Currency",
+   "label": "Inventory / Stock"
+  },
+  {
+   "fieldname": "cash_bank_balances",
+   "fieldtype": "Currency",
+   "label": "Cash & Bank Balances"
+  },
+  {
+   "fieldname": "liabilities_section",
+   "fieldtype": "Section Break",
+   "label": "Liabilities"
+  },
+  {
+   "fieldname": "secured_loans_long_term",
+   "fieldtype": "Currency",
+   "label": "Secured Loans Long Term"
+  },
+  {
+   "fieldname": "other_current_liabilities",
+   "fieldtype": "Currency",
+   "label": "Other Current Liabilities"
+  },
+  {
+   "fieldname": "column_break_liabilities",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unsecured_loans_short_term",
+   "fieldtype": "Currency",
+   "label": "Unsecured Loans Short Term"
+  },
+  {
+   "fieldname": "sundry_creditors",
+   "fieldtype": "Currency",
+   "label": "Sundry Creditors"
+  },
+  {
+   "fieldname": "calculation_section",
+   "fieldtype": "Section Break",
+   "label": "Calculation"
+  },
+  {
+   "fieldname": "working_capital",
+   "fieldtype": "Currency",
+   "label": "Working Capital",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gp_ratio",
+   "fieldtype": "Float",
+   "label": "GP Ratio",
+   "read_only": 1
+  },
+  {
+   "fieldname": "np_ratio",
+   "fieldtype": "Float",
+   "label": "NP Ratio",
+   "read_only": 1
+  },
+  {
+   "fieldname": "working_capital_ratio",
+   "fieldtype": "Float",
+   "label": "Working Capital Ratio",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_worth_ratio",
+   "fieldtype": "Float",
+   "label": "Net Worth Ratio",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dso",
+   "fieldtype": "Float",
+   "label": "DSO",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_calculation",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "net_worth",
+   "fieldtype": "Currency",
+   "label": "Net Worth",
+   "read_only": 1
+  },
+  {
+   "fieldname": "st_point",
+   "fieldtype": "Float",
+   "label": "S T Point (20)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "gpr_point",
+   "fieldtype": "Float",
+   "label": "GPR Point (15)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "npr_point",
+   "fieldtype": "Float",
+   "label": "NPR Point (15)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "wc_point",
+   "fieldtype": "Float",
+   "label": "W C Point (15)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "net_worth_point",
+   "fieldtype": "Float",
+   "label": "Net Worth Point (15)",
+   "read_only": 1
+  },
+  {
+   "fieldname": "dso_point",
+   "fieldtype": "Float",
+   "label": "DSO Point (20)",
+   "read_only": 1
+  },
+  {
+   "bold": 1,
+   "fieldname": "total_points",
+   "fieldtype": "Float",
+   "label": "Total Points",
+   "read_only": 1
+  },
+  {
+   "fieldname": "result_section",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "new_dealer_category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "New Dealer Category",
+   "options": "\n",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Category Calculation",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-11-07 13:10:00.000000",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Dealer Category Calculation",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

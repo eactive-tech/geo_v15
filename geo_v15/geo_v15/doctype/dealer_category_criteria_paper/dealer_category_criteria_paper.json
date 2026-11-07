@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "DCCP-.###",
+ "creation": "2026-11-07 11:17:13.889568",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "is_active",
+  "column_break_main",
+  "sales_turnover_section",
+  "sales_turnover",
+  "gross_profit_ratio_section",
+  "gross_profit_ratio",
+  "net_profit_ratio_section",
+  "net_profit_ratio",
+  "working_capital_section",
+  "working_capital",
+  "net_worth_section",
+  "net_worth",
+  "dso_section",
+  "dso",
+  "category_points_section",
+  "category_points",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Active"
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_turnover_section",
+   "fieldtype": "Section Break",
+   "label": "Sales Turnover"
+  },
+  {
+   "fieldname": "sales_turnover",
+   "fieldtype": "Table",
+   "label": "Sales Turnover",
+   "options": "DCCP Sales Turnover"
+  },
+  {
+   "fieldname": "gross_profit_ratio_section",
+   "fieldtype": "Section Break",
+   "label": "Gross Profit Ratio"
+  },
+  {
+   "fieldname": "gross_profit_ratio",
+   "fieldtype": "Table",
+   "label": "Gross Profit Ratio",
+   "options": "DCCP Gross Profit Ratio"
+  },
+  {
+   "fieldname": "net_profit_ratio_section",
+   "fieldtype": "Section Break",
+   "label": "Net Profit Ratio"
+  },
+  {
+   "fieldname": "net_profit_ratio",
+   "fieldtype": "Table",
+   "label": "Net Profit Ratio",
+   "options": "DCCP Net Profit Ratio"
+  },
+  {
+   "fieldname": "working_capital_section",
+   "fieldtype": "Section Break",
+   "label": "Working Capital"
+  },
+  {
+   "fieldname": "working_capital",
+   "fieldtype": "Table",
+   "label": "Working Capital",
+   "options": "DCCP Working Capital"
+  },
+  {
+   "fieldname": "net_worth_section",
+   "fieldtype": "Section Break",
+   "label": "Net Worth"
+  },
+  {
+   "fieldname": "net_worth",
+   "fieldtype": "Table",
+   "label": "Net Worth",
+   "options": "DCCP Net Worth"
+  },
+  {
+   "fieldname": "dso_section",
+   "fieldtype": "Section Break",
+   "label": "DSO"
+  },
+  {
+   "fieldname": "dso",
+   "fieldtype": "Table",
+   "label": "DSO",
+   "options": "DCCP DSO"
+  },
+  {
+   "fieldname": "category_points_section",
+   "fieldtype": "Section Break",
+   "label": "Point Table for Category"
+  },
+  {
+   "fieldname": "category_points",
+   "fieldtype": "Table",
+   "label": "Point Table for Category",
+   "options": "DCCP Category Points"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Dealer Category Criteria Paper",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-07 13:01:00.745946",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Dealer Category Criteria Paper",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
