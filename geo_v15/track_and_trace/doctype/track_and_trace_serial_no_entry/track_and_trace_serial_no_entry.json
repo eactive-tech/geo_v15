@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-05-09 09:57:25.184068",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "trace_serial_no",
+  "batch_no",
+  "qr_type"
+ ],
+ "fields": [
+  {
+   "fieldname": "trace_serial_no",
+   "fieldtype": "Link",
+   "label": "Trace Serial No",
+   "options": "Trace Serial No"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Link",
+   "label": "Batch No",
+   "options": "Batch"
+  },
+  {
+   "fieldname": "qr_type",
+   "fieldtype": "Select",
+   "label": "Qr Type",
+   "options": "\nPrimary QR\nSecondry QR\nThird QR\nFG QR"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-05-09 09:58:50.707461",
+ "modified_by": "Administrator",
+ "module": "Track and Trace",
+ "name": "Track and Trace Serial No Entry",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{incentive_designation}-{fiscal_year}",
+ "creation": "2026-04-06 19:08:09.475014",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "incentive_designation",
+  "fiscal_year",
+  "incentive_scheme"
+ ],
+ "fields": [
+  {
+   "fieldname": "incentive_designation",
+   "fieldtype": "Select",
+   "label": "Incentive Designation",
+   "options": "\nSales Person\nArea Manager\nArea Manager(PB)\nRegional Manager\nRegional Manager (PT)\nZonal Manager\nZonal Manager(DS)"
+  },
+  {
+   "fieldname": "incentive_scheme",
+   "fieldtype": "Table",
+   "label": "Incentive Scheme",
+   "options": "Incentive Scheme Assignment Items"
+  },
+  {
+   "fieldname": "fiscal_year",
+   "fieldtype": "Link",
+   "label": "Fiscal Year",
+   "options": "Fiscal Year"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-06-02 12:30:55.890884",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Incentive Scheme Assignment",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

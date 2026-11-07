@@ -66,7 +66,18 @@ frappe.query_reports["General Ledger"] = {
 			fieldtype: "Autocomplete",
 			options: Object.keys(frappe.boot.party_account_types),
 			on_change: function () {
-				frappe.query_report.set_filter_value("party", "");
+				frappe.query_report.set_filter_value("party", []);
+				let party_type = frappe.query_report.get_filter_value("party_type");
+				let show_transaction_summary_field = frappe.query_report.get_filter("show_transaction_summary");
+				if (party_type === "Customer") {
+					show_transaction_summary_field.set_value(1);
+					show_transaction_summary_field.df.hidden = false;
+				}else{
+					show_transaction_summary_field.df.hidden = true;
+					show_transaction_summary_field.set_value(0);
+				}
+
+				show_transaction_summary_field.refresh();
 			},
 		},
 		{
@@ -239,7 +250,14 @@ frappe.query_reports["General Ledger"] = {
 			"fieldname": "show_refrence",
 			"label": __("Show Refrence number"),
 			"fieldtype": "Check"
-		}
+		},
+		{
+			"fieldname": "show_transaction_summary",
+			"label": __("Show Transaction Summary"),
+			"fieldtype": "Check",
+			"default": 0,
+			"hidden": 1,
+		},
 	],
 };
 

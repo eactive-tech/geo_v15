@@ -14,7 +14,7 @@
 		{% endif %}
 	</div>
 	<h2 class="text-center">{{ _("STATEMENTS OF ACCOUNTS") }}</h2>
-		{% set customer = frappe.get_doc('Customer',filters.party[0]) %}
+		<!-- {% set customer = frappe.get_doc('Customer',filters.party[0]) %}
 		<div class="row">
 			<div class="col-xs-6 col-sm-6 col-md-6">
 				<h5 >{{ _("Customer: ") }} <br>
@@ -31,7 +31,50 @@
 					</h5>
 				<p style="font-size: smaller;">Code : {{ filters.party[0] }} </p>
 			</div>
-		</div>
+		</div> -->
+
+		
+	<table class="table">
+		<tr>
+			<td class="">
+			{% set customer = frappe.get_doc('Customer',filters.party[0]) %}
+			<div >
+				<h5 >{{ _("Customer: ") }} <br>
+					<b>{{customer.customer_name }}</b>
+				</h5>
+				<p style="font-size: smaller;">{{ customer.primary_address or "" }}</p>
+			</div>
+			<div >
+					<b>{{ _("Date: ") }}</b>
+					{{ frappe.format(filters.from_date, 'Date')}}
+					{{ _("to") }}
+					{{ frappe.format(filters.to_date, 'Date')}}
+					<br>
+				<b>Code:</b> {{ filters.party[0] }} 
+			</div>
+		</td>
+		
+		<td class="">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Head</th>
+						<th>Account</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for d in data[data|length-1]['summary'] %}
+					<tr>
+						<td>{{ d.head }}</td>
+						<td>{{ frappe.format( d.amount, 'Currency') }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</td>
+		</tr>
+	</table>
+
 		
 	<br>
 	<style>

@@ -1,0 +1,77 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2025-12-08 11:13:04.753857",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "geolife",
+ "letterhead": null,
+ "modified": "2025-12-08 11:17:38.646435",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Accounts Receivable for Export Customer",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Sales Invoice",
+ "report_name": "Accounts Receivable for Export Customer",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Credit Controller"
+  },
+  {
+   "role": "Stock Auditor"
+  },
+  {
+   "role": "Internal Auditor"
+  },
+  {
+   "role": "Budget"
+  },
+  {
+   "role": "Sales Viewer"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Sales Order B2B"
+  },
+  {
+   "role": "Account Head"
+  },
+  {
+   "role": "Data Import"
+  },
+  {
+   "role": "Director"
+  },
+  {
+   "role": "Product Manager"
+  },
+  {
+   "role": "E - Com Sales user"
+  },
+  {
+   "role": "Sales Order"
+  },
+  {
+   "role": "Employee Self Service"
+  }
+ ],
+ "timeout": 0
+}

@@ -1,0 +1,209 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-01-05 16:04:48.808297",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_wt6n",
+  "branch",
+  "customer_code",
+  "customer_name_if_code_unavailable",
+  "item",
+  "item_name_if_code_unavailable",
+  "employee",
+  "employee_name",
+  "column_break_crbb",
+  "posting_date",
+  "customer_name",
+  "quote_for_qty",
+  "item_name",
+  "item_uom",
+  "item_uom_if_code_unavailable",
+  "section_break_wpwi",
+  "costing_item",
+  "section_break_upvu",
+  "rm_loss",
+  "final_net_amount",
+  "administrative_percent",
+  "cost_per_unit",
+  "column_break_z6qv",
+  "total_amount",
+  "production_cost",
+  "administrative_cost",
+  "grand_total"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_wt6n",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_code",
+   "fieldtype": "Link",
+   "label": "Customer Code",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "customer_name_if_code_unavailable",
+   "fieldtype": "Data",
+   "label": "Customer Name (If code unavailable) "
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "item_name_if_code_unavailable",
+   "fieldtype": "Data",
+   "label": "Item Name (If code unavailable)"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "column_break_crbb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "label": "Customer Name"
+  },
+  {
+   "fieldname": "quote_for_qty",
+   "fieldtype": "Int",
+   "label": "Quote for Qty",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "label": "Item Name"
+  },
+  {
+   "fieldname": "item_uom",
+   "fieldtype": "Link",
+   "label": "Item UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "item_uom_if_code_unavailable",
+   "fieldtype": "Data",
+   "label": "Item UOM (If code Unavailable)"
+  },
+  {
+   "fieldname": "section_break_wpwi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "costing_item",
+   "fieldtype": "Table",
+   "label": "Costing Item",
+   "options": "Costing Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_upvu",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "rm_loss",
+   "fieldtype": "Float",
+   "label": "RM Loss"
+  },
+  {
+   "fieldname": "final_net_amount",
+   "fieldtype": "Currency",
+   "label": "Final Net Amount"
+  },
+  {
+   "fieldname": "administrative_percent",
+   "fieldtype": "Float",
+   "label": "Administrative percent"
+  },
+  {
+   "fieldname": "cost_per_unit",
+   "fieldtype": "Float",
+   "label": "Cost Per Unit"
+  },
+  {
+   "fieldname": "column_break_z6qv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Float",
+   "label": "Total Amount"
+  },
+  {
+   "fieldname": "production_cost",
+   "fieldtype": "Float",
+   "label": "Production Cost"
+  },
+  {
+   "fieldname": "administrative_cost",
+   "fieldtype": "Float",
+   "label": "Administrative cost"
+  },
+  {
+   "fieldname": "grand_total",
+   "fieldtype": "Float",
+   "label": "Grand Total"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-05-15 13:12:51.947671",
+ "modified_by": "Administrator",
+ "module": "geo_v15",
+ "name": "Customer Costing Sheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -45,14 +45,12 @@ def get_report_pdf(doc, consolidated=True):
 	ageing = ""
 	base_template_path = "frappe/www/printview.html"
 	template_path = (
-		# "erpnext/accounts/doctype/process_statement_of_account_for_supplier/confirmation_of_accounts.html"
-		"geo_v15/templates/general_ledger.html"
+			"geo_v15/templates/process_statement_of_accounts_for_supplier.html"
 		)
 
 	if doc.geo_is_confirmation_account == 1:
 		template_path = (
-		# "erpnext/accounts/doctype/process_statement_of_account_for_supplier/confirmation_of_accounts.html"
-		"geo_v15/doctype/process_statement_of_account_for_supplier/confirmation_of_accounts.html"
+			"geo_v15/templates/confirmation_of_accounts_for_supplier.html"
 		)
 
 
@@ -81,6 +79,7 @@ def get_report_pdf(doc, consolidated=True):
 			or doc.currency
 			or get_company_currency(doc.company)
 		)
+
 		if doc.letter_head:
 			from frappe.www.printview import get_letter_head
 
@@ -108,13 +107,14 @@ def get_report_pdf(doc, consolidated=True):
 				"tax_id": tax_id if tax_id else None,
 			}
 		)
+
 		col, res = get_soa(filters)
 
 		for x in [0, -2, -1]:
 			res[x]["account"] = res[x]["account"].replace("'", "")
 
-		if len(res) == 3:
-			continue
+		# if len(res) == 3:
+		# 	continue
 
 		html = frappe.render_template(
 			template_path,
@@ -131,11 +131,13 @@ def get_report_pdf(doc, consolidated=True):
 			},
 		)
 
+
 		html = frappe.render_template(
 			base_template_path,
 			{"body": html, "css": get_print_style(), "title": "Statement For " + entry.supplier},
 		)
 		statement_dict[entry.supplier] = html
+
 
 	if not bool(statement_dict):
 		return False
@@ -261,6 +263,7 @@ def fetch_suppliers(supplier_group, supplier_name, primary_mandatory):
 def download_statements(document_name):
 	doc = frappe.get_doc("Process Statement of account for supplier", document_name)
 	report = get_report_pdf(doc)
+
 	if report:
 		frappe.local.response.filename = doc.name + ".pdf"
 		frappe.local.response.filecontent = report
