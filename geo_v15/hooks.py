@@ -220,6 +220,13 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+	{
+		"dt": "Custom Field",
+		"filters": [["name", "in", ["Customer-custom_customer_category_as_per_balance_sheet"]]],
+	}
+]
+
 doc_events = {
 	"Sales Invoice": {
 		"before_save": "geo_v15.geo_v15.utils.sales_invoice.validate_batch_stock"
